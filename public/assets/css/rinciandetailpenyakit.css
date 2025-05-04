@@ -1,0 +1,294 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Mencegah geser ke samping */
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Layout Utama */
+.container.rincian {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 100px 0px 0px 0px;
+}
+
+/* Flexbox untuk Mengatur Layout dalam Detail Container */
+.detail-container {
+    flex-direction: column; /* Default mobile */
+    align-items: center;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #cb2d3e;
+    max-width: 100%;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    gap: 20px; /* Beri jarak antara teks dan gambar */
+}
+
+/* Layout untuk teks dan gambar */
+.text-image-wrapper {
+    display: flex;
+    flex-direction: column; /* Default mobile */
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Bagian teks */
+.text-container {
+    flex: 1;
+    text-align: left;
+}
+
+
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    overflow: hidden; /* Membatasi elemen di dalam agar tidak keluar */
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 400px; /* Pastikan ada ketinggian minimal */
+}
+
+/* Pastikan gambar utama tetap pada posisi yang benar */
+.image-container img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Banner latar belakang */
+.banner-top,
+.banner-bottom {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 250px;
+    height: 300px;
+    opacity: 30%;
+    z-index: 1; /* Di belakang gambar */
+}
+
+/* Posisi banner atas */
+.banner-top {
+    background-image: url(../images/bawang1.png);
+    top: 100px; /* Sesuaikan agar tetap di atas */
+    left: 0;
+}
+
+/* Posisi banner bawah */
+.banner-bottom {
+    background-image: url(../images/bawang2.png);
+    bottom: 10px; /* Tetap di bagian bawah */
+    right: 0;
+}
+
+/* Jika deskripsi panjang, pastikan banner tetap muncul */
+.text-container {
+    flex: 1;
+    min-height: 400px; /* Tambahkan min-height agar tidak terlalu pendek */
+}
+
+/* Pastikan layout responsif */
+@media (min-width: 768px) {
+    .text-image-wrapper {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+
+/* Label */
+.label {
+    background-color: #FFC700;
+    color: #ffff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    width: fit-content;
+    margin-top: 10px;
+}
+
+/* Responsif: Ubah menjadi row saat layar lebih lebar */
+@media (min-width: 768px) {
+    .text-image-wrapper {
+        flex-direction: row; /* Teks di kiri, gambar di kanan */
+        align-items: flex-start;
+    }
+
+    .text-container {
+        max-width: 50%;
+    }
+
+    .image-container {
+        max-width: 100%;
+    }
+}
+
+/* Tambahan CSS yang Dipertahankan */
+.text-small {
+    font-size: 12px;
+}
+
+@media (min-width: 768px) { 
+    .text-small {
+        font-size: 14px;
+    }
+}
+
+.back-button {
+    text-align: left; 
+    /* margin-bottom: 15px; */
+}
+
+.btn-kembali {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #cb2d3e;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.btn-kembali svg {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+}
+
+.btn-kembali:hover {
+    color: #ffff; /* Warna teks berubah */
+}
+
+
+
+.pjudul {
+    color: #cb2d3e;
+}
+
+
+.px-4 {
+    padding-right: 1rem;
+}
+
+.detail-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.detail-container p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* deskripsi penjelasan dan penanganan */
+/* Container untuk setiap section */
+.section-container {
+    flex-grow: 1;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.section-container h2{
+    color: #03a4ed;
+    font-size: 20px;
+
+}
+
+.section-container p{
+    color: #03a4ed;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+
+/* Untuk ukuran layar lebih besar */
+@media (min-width: 768px) {
+    .section-container {
+        font-size: 14px;
+    }
+}
+
+/* Judul */
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 16px 0;
+}
+
+/* Responsif untuk ukuran besar */
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 20px;
+    }
+}
+
+/* Paragraf teks */
+.section-text {
+    font-size: inherit;
+    line-height: 1.6;
+}
+
+
+/* Responsif Tambahan */
+@media (max-width: 767px) {
+    .container.rincian {
+        padding-top: 100px;
+    }
+
+    .detail-container {
+        padding: 1.5rem;
+    }
+
+    .detail-container h1 {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container.rincian {
+        flex-direction: row;
+        padding-top: 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .detail-container {
+        padding: 2rem;
+    }
+
+    .detail-container h1 {
+        font-size: 28px;
+    }
+}
+

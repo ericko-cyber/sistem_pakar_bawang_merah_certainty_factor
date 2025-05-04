@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+  .main-banner:after {
+    top: 76px;
+    z-index: -1;
+  }
+
+
+.container.detailpenyakit{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin-block: 2rem;
+    gap: 2rem;
+  }
+
+img {
+    height: 200px;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: clamp(20rem, calc(20rem + 2vw), 22rem);
+    overflow: hidden;
+    box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background: #87CEEB;
+    background: linear-gradient(to bottom, #FFFFFF, #ffff);
+    transition: transform 0.2s ease-in-out;
+
+  }
+  
+  
+  
+  .card__body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  
+  
+  .tag {
+    align-self: flex-start;
+    padding: .25em .75em;
+    border-radius: 1em;
+    font-size: .75rem;
+  }
+  
+  .tag + .tag {
+    margin-left: .5em;
+  }
+  
+  .tag-blue {
+    background: #56CCF2;
+  background: linear-gradient(to bottom, #2F80ED, #56CCF2);
+    color: #fafafa;
+  }
+  
+  .tag-brown {
+    background: #D1913C;
+  background: linear-gradient(to bottom, #FFD194, #D1913C);
+    color: #fafafa;
+  }
+  
+  .tag-red {
+    background: #cb2d3e;
+  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
+    color: #fafafa;
+  }
+  
+  .card__body h4 {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+  
+  .card__footer {
+    display: flex;
+    padding: 1rem;
+    margin-top: auto;
+  }
+  
+  .user {
+    display: flex;
+    gap: .5rem;
+  }
+  
+  .user__image {
+    border-radius: 50%;
+  }
+  
+  .user__info > small {
+    color: #666;
+  }
+  
+  .detailpenyakit .card__body p {
+    font-size: 16px;  /* Ukuran font */
+    color: #1a1a1a;  /* Warna teks */
+    line-height: 1.5;  /* Jarak antar baris */
+    text-align: justify;  /* Rata kanan-kiri */
+    margin-top: 10px;  /* Jarak atas */
+    font-weight: 400;
+}
+
+/* Buat seluruh card menjadi tombol klik */
+.card-link {
+  text-decoration: none;
+  color: inherit; /* Agar teks tetap mengikuti warna asli */
+  display: block;
+}
+
+
+
+.card:hover {
+  transform: scale(1.05); /* Efek zoom saat hover */
+}
+
+
+.main-banner {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding: 100px 0px 0px 0px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .main-banner:after {
+    content: '';
+    background-image: url(../images/baner-dec-left.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    width: 193px;
+    height: 467px;
+  }
+  .banner-top {
+    content: '';
+    background-image: url(../images/bawang1.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 0;
+    top: 800px;
+    width: 250px;
+    height: 550px;
+    opacity: 30%;
+  }
+  
+  .main-banner:before {
+    content: '';
+    background-image: url(../images/baner-dec-right.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    top: 100px;
+    width: 98px;
+    height: 290px;
+  }
+  .banner-bottom {
+    content: '';
+    background-image: url(../images/bawang2.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 600px;
+    width: 250px;
+    height: 550px;
+    opacity: 30%;
+  }
+
+  .main-banner .left-content {
+    margin-right: 45px;
+  }
+
+  .main-banner .left-content h2 {
+    margin-top: 40px;
+    font-size: 50px;
+    font-weight: 700;
+    color: #2a2a2a;
+    line-height: 72px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .main-banner .left-content h2 em {
+    color: #03a4ed;
+    font-style: normal;
+  }
+  
+  .main-banner .left-content h2 span {
+    color: #fe3f40;
+  }
+
+  /* Style untuk judul penyakit */
+.judul-penyakit {
+  color: #cb2d3e;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Container Flex untuk menyusun elemen */
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Style untuk label Webinar */
+.label-box {
+  background-color: #007bff;
+  color: #FFFFFF;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px 10px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+/* Style untuk tombol Akses Rekaman */
+.rekaman-button {
+  background-color: #cb2d3e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap; /* Agar teks tetap dalam satu baris */
+}
+
+
+  @media (max-width: 992px) {
+    .bannermerah {
+      margin-right: 0px;
+      position: absolute;
+      bottom: 0px;
+      right: 0;
+    }
+    .main-banner {
+      padding-top: 196px;
+    }
+    .main-banner .left-content {
+      margin-right: 0px;
+      text-align: center;
+      margin-bottom: 45px;
+    }
+    .main-banner:after {
+      top: 76px;
+      z-index: -1;
+    }
+    .main-banner .left-content form,
+    .main-banner .left-content form input {
+      width: 100%!important;
+    }
+  }
