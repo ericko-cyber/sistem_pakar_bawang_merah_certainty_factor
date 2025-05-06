@@ -20,6 +20,7 @@ class Penyakit extends Model
         'deskripsi',
         'penanganan',
         'gambar',
+        'gejala',
     ];
 
     // Relasi ke tabel 'rules'

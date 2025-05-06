@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Cetak Hasil Diagnosa</title>
     <link rel="stylesheet" href="{{ asset('assets/css/print.css') }}">
@@ -15,7 +16,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             border: 1px solid #000;
             text-align: left;
@@ -38,12 +40,13 @@
         }
     </style>
 </head>
+
 <body>
 
     <h2>Hasil Diagnosa Penyakit Bawang Merah</h2>
 
     @php
-        $nilai_angka = isset($riwayat->nilai) ? preg_replace('/[^0-9.]/', '', $riwayat->nilai) : null;
+    $nilai_angka = isset($riwayat->nilai) ? preg_replace('/[^0-9.]/', '', $riwayat->nilai) : null;
     @endphp
 
     <table>
@@ -88,15 +91,20 @@
     </table>
 
     <div class="text-center mt-4 no-print">
-        <a href="{{ route('history') }}" class="btn btn-secondary">Kembali</a>
+        @if ($role === 'admin')
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
+        @else
+        <a href="{{ route('history') }}" class="btn btn-secondary">Kembali ke Riwayat</a>
+        @endif
         <button onclick="window.print()" class="btn btn-primary">Cetak</button>
     </div>
 
     <script>
-        window.onload = function () {
+        window.onload = function() {
             window.print();
         };
     </script>
 
 </body>
+
 </html>

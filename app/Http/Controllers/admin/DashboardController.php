@@ -45,6 +45,11 @@ class DashboardController extends Controller
             return $item->count; // Jumlah pendaftar per bulan
         });
 
+        $riwayatDiagnosa = RiwayatDiagnosa::with(['user', 'penyakit'])
+            ->orderBy('tanggal', 'desc')
+            ->take(10) // ambil 10 data terbaru, bisa diubah sesuai kebutuhan
+            ->get();
+
         return view('layouts.admin.dashboard', compact(
             'labelsDiagnosa',
             'dataDiagnosa',
@@ -53,7 +58,8 @@ class DashboardController extends Controller
             'totalUser',
             'totalDiagnosa',
             'totalPenyakit',
-            'totalGejala'
+            'totalGejala',
+            'riwayatDiagnosa'
         ));
     }
 }

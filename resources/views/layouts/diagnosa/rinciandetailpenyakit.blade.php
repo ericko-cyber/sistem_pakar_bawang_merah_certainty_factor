@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Detail Penyakit</title>
     <link rel="stylesheet" href="{{ asset('assets/css/rinciandetailpenyakit.css') }}">
-    
+
 </head>
 
 <body>
@@ -46,10 +46,21 @@
                     </section>
 
                     <section class="section-container">
-                        <h2 class="section-title">Penanganan</h>
-                            <p class="section-text">
-                                {{$penyakit->penanganan}}
-                            </p>
+                        <h2 class="section-title">Gejala</h2>
+                        <ol class="section-text" style="font-weight: 600; font-size: 15px;">
+                            @foreach($gejala_list as $gejala)
+                            <li>{{ $gejala }}</li>
+                            @endforeach
+                        </ol>
+                    </section>
+
+                    <section class="section-container">
+                        <h2 class="section-title">Penanganan</h2>
+                        <ol class="section-text" style="font-weight: 600; font-size: 15px;">
+                            @foreach(explode("\n", $penyakit->penanganan) as $item)
+                            <li>{{ $item }}</li>
+                            @endforeach
+                        </ol>
                     </section>
 
                 </div>

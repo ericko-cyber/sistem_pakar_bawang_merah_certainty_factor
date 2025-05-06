@@ -86,7 +86,7 @@ class DiagnosaController extends Controller
         $riwayat = RiwayatDiagnosa::create([
             'id_user' => Auth::user()->id,
             'id_penyakit' => $terbesar['penyakit']->id,
-            'nilai' => round($terbesar['nilai'] * 100, 2) . '%',
+            'nilai' => ($terbesar['nilai'] * 100) . '%',
             'tanggal' => now(),
         ]);
 

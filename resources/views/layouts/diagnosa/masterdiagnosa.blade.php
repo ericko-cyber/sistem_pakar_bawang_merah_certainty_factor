@@ -19,6 +19,11 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
 
 	<style>
+		.main-red-button {
+			margin-right: 10px;
+			/* Memberikan jarak kanan antar tombol */
+		}
+
 		.popup-box h2 {
 			margin-bottom: 20px !important;
 			font-weight: 600 !important;
@@ -185,14 +190,14 @@
 							<li class="{{ request()->routeIs('history') ? 'active' : '' }}">
 								<a href="{{ route('history') }}">Riwayat</a>
 							</li>
-							<li class="d-flex align-items-center">
+							<li class="d-flex align-items-center ">
 								@if(Auth::check())
-								<a href="javascript:void(0);" class="main-red-button" onclick="togglePopup()">Profil</a>
+								<a href="javascript:void(0);" class="main-red-button " onclick="togglePopup()">Profil</a>
 								<a href="#" class="main-red-button"
 									onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 									Logout
 								</a>
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								<form id="logout-form" class="" action="{{ route('logout') }}" method="POST" style="display: none;">
 									@csrf
 								</form>
 								@else
@@ -222,6 +227,16 @@
 					Username:
 				</label>
 				<p>{{ Auth::user()->username ?? 'Guest' }}</p>
+				<label class="form-label"
+					for="name">
+					Umur:
+				</label>
+				<p>{{ Auth::user()->umur ?? 'Guest' }}</p>
+				<label class="form-label"
+					for="name">
+					Telp:
+				</label>
+				<p>{{ Auth::user()->telp ?? 'Guest' }}</p>
 				<label class="form-label"
 					for="name">
 					Email:
@@ -279,7 +294,7 @@
 	<script src="assets/js/animation.js"></script>
 	<script src="assets/js/imagesloaded.js"></script>
 	<script src="assets/js/templatemo-custom.js"></script>
-	
+
 </body>
 
 </html>

@@ -34,6 +34,8 @@ Route::get('/', function () {
 Route::middleware('admin')->group(function () {
     // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
 
     // Daftar User
     Route::get('/daftaruser', [DaftarUserController::class, 'index'])->name('daftaruser')->middleware('auth');

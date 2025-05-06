@@ -90,42 +90,38 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Nama</th>
+                    <th>Penyakit</th>
+                    <th>nilai</th>
+                    <th>Tanggal Diagnosa</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Nama</th>
+                    <th>Penyakit</th>
+                    <th>nilai</th>
+                    <th>Tanggal Diagnosa</th>
+                    <th>Aksi</th>
                 </tr>
             </tfoot>
             <tbody>
+                @foreach ($riwayatDiagnosa as $riwayat)
                 <tr>
-                    <td>Michael Bruce</td>
-                    <td>Javascript Developer</td>
-                    <td>Singapore</td>
-                    <td>29</td>
-                    <td>2011/06/27</td>
-                    <td>$183,000</td>
+                    <td>{{ $riwayat->user->username }}</td>
+                    <td>{{ $riwayat->penyakit->nama_penyakit }}</td>
+                    <td>{{ $riwayat->nilai }}</td>
+                    <td>{{ \Carbon\Carbon::parse($riwayat->tanggal)->format('d M Y') }}</td>
+                    <td>
+                        <a href="{{ route('history.print', $riwayat->id_riwayat) }}" class="btn btn-sm btn-primary">
+                            Detail
+                        </a>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011/01/25</td>
-                    <td>$112,000</td>
-                </tr>
+                @endforeach
             </tbody>
+
         </table>
     </div>
 </div>

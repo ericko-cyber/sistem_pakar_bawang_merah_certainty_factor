@@ -30,6 +30,7 @@ class HistoryController extends Controller
 
     public function detail($id)
     {
+        $role = auth()->user()->role;
         // Ambil data RiwayatDiagnosa berdasarkan ID
         $riwayat = RiwayatDiagnosa::with('penyakit', 'user')->findOrFail($id);
 
@@ -39,13 +40,16 @@ class HistoryController extends Controller
         }
 
         // Kirim data ke tampilan
-        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat'));
+        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat', 'role'));
     }
 
     public function print($id)
     {
         $riwayat = \App\Models\RiwayatDiagnosa::with('penyakit', 'user')->findOrFail($id);
 
-        return view('layouts.diagnosa.print', compact('riwayat'));
+        $role = auth()->user()->role;
+
+        // Kirim data riwayat dan role ke tampilan
+        return view('layouts.diagnosa.print', compact('riwayat', 'role'));
     }
 }
