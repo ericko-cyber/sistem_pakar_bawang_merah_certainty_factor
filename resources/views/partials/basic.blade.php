@@ -58,19 +58,6 @@
 									</div>
 									<div class="right-text">
 										<div>
-											<h4>Mati Pucuk</h4>
-											<p>Penyakit yang menyebabkan daun layu, mengering, dan akhirnya mati, sering kali dimulai dari ujung daun.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="1.1s">
-									<div class="icon">
-										<img src="assets/images/virus.png" alt="">
-									</div>
-									<div class="right-text">
-										<div>
 											<h4>Embun Bulu</h4>
 											<p>Penyakit yang ditandai dengan bercak putih atau kelabu pada daun, menyebabkan daun menguning, layu, dan pertumbuhan tanaman terhambat.</p>
 										</div>

@@ -16,7 +16,8 @@ class Gejala extends Model
     // Relasi ke tabel penyakit melalui pivot 'rules'
     protected $fillable = [
         'kode_gejala',
-        'nama_gejala'
+        'nama_gejala',
+        'gambar'
     ];
     public function penyakit()
     {

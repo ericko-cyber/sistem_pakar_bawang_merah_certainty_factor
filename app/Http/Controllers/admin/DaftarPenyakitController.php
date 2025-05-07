@@ -28,7 +28,7 @@ class DaftarPenyakitController extends Controller
             'subjudul' => 'required|string|max:150',
             'deskripsi' => 'required|string',
             'penanganan' => 'required|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
             'gejala' => 'required|array', // Memastikan gejala yang dipilih adalah array
             'gejala.*' => 'exists:gejala,id', // Memastikan ID gejala ada di tabel gejala
         ]);
@@ -68,7 +68,7 @@ class DaftarPenyakitController extends Controller
             'subjudul' => 'required|string|max:150',
             'deskripsi' => 'required|string',
             'penanganan' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'gejala' => 'required|array', // Validasi gejala yang dipilih
             'gejala.*' => 'exists:gejala,id',
         ]);

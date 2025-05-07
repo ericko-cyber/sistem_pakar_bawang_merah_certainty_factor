@@ -75,19 +75,15 @@ $gejala = DB::table('gejala')->get();
 
         <div class="container detailpenyakit">
             @foreach ($gejala as $g)
-            <a href="{{ route('rinciandetailpenyakit', ['id' => $p->id]) }}" class="card-link">
+            <a href="{{ route('rinciandetailpenyakit', ['id' => $g->id]) }}" class="card-link">
                 <div class="card">
                     <div class="card__header">
-                        <img src="{{ asset('assets/images/gambar') }}" alt="card__image" class="card__image" width="600">
+                        <img src="{{ asset('assets/images/' . $g->gambar) }}" alt="card__image" class="card__image" width="600">
                     </div>
                     <div class="card__body">
                         <h4 class="judul-penyakit">
                             {{ $g->nama_gejala }}
                         </h4>
-                        <!-- <div class="flex-container">
-                            <div class="label-box">Penyakit</div>
-                            <div class="rekaman-button">Akses Rincian Penyakit</div>
-                        </div> -->
                     </div>
                 </div>
             </a>

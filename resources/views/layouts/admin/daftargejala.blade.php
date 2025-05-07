@@ -34,6 +34,7 @@
                 <tr>
                     <th>Kode Gejala</th>
                     <th>Nama Gejala</th>
+                    <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                 <tr>
                     <th>Kode Gejala</th>
                     <th>Nama Gejala</th>
+                    <th>Gambar</th>
                     <th>Aksi</th>
                 </tr>
             </tfoot>
@@ -49,6 +51,9 @@
                 <tr>
                     <td>{{ $gejala->kode_gejala }}</td>
                     <td>{{ $gejala->nama_gejala }}</td>
+                    <td>
+                        <img src="{{ asset('assets/images/' . $gejala->gambar) }}" width="100" alt="Gambar Gejala">
+                    </td>
                     <td>
                         <form action="{{ route('gejala.destroy', $gejala->id) }}" method="POST" style="display:inline-block;">
                             @csrf
@@ -70,7 +75,7 @@
 @foreach($gejala_list as $gejala)
 <div class="modal fade" id="editGejalaModal{{ $gejala->id }}" tabindex="-1" aria-labelledby="editGejalaModalLabel{{ $gejala->id }}" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('gejala.update', $gejala->id) }}" method="POST">
+        <form action="{{ route('gejala.update', $gejala->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="modal-content">
@@ -87,6 +92,15 @@
                         <label for="nama_gejala" class="form-label">Nama Gejala</label>
                         <input type="text" name="nama_gejala" class="form-control" value="{{ $gejala->nama_gejala }}" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar (Kosongkan jika tidak ingin mengganti)</label>
+                        <input type="file" class="form-control" name="gambar" accept="image/*">
+                        <small class="form-text text-muted">Gambar saat ini: <br><img src="{{ asset('assets/images/' . $gejala->gambar) }}" width="100"></small>
+                    </div>
+                    @error('gambar')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -101,7 +115,7 @@
 <!-- Modal Tambah Gejala -->
 <div class="modal fade" id="tambahGejalaModal" tabindex="-1" aria-labelledby="tambahGejalaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('gejala.store') }}" method="POST">
+        <form action="{{ route('gejala.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,6 +130,10 @@
                     <div class="mb-3">
                         <label for="nama_gejala" class="form-label">Nama Gejala</label>
                         <input type="text" name="nama_gejala" class="form-control" id="nama_gejala" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar</label>
+                        <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
                     </div>
                 </div>
                 <div class="modal-footer">

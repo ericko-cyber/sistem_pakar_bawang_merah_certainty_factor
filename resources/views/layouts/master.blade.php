@@ -178,6 +178,7 @@
 							<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
 							<li class="scroll-to-section"><a href="#about">Basic Pengetahuan</a></li>
 							<li class="scroll-to-section"><a href="#PP">Panduan Penggunaan</a></li>
+							<li class="scroll-to-section"><a href="#tentang">Tentang Pakar</a></li>
 							<li><a href="{{ route('diagnosa') }}">Diagnosa</a></li>
 							<li class="d-flex align-items-center">
 								@if(Auth::check())

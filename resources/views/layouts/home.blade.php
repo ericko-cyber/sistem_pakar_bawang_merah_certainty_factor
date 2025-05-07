@@ -7,5 +7,6 @@
 @include('partials.top')
 @include('partials.basic')
 @include('partials.panduan')
+@include('partials.tentang')
 
 @endsection
