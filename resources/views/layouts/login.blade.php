@@ -3,6 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
+
 <div class="login">
 
     <h1>Login Dulu Sob</h1>
@@ -32,8 +33,8 @@
         @endif
 
         <button class="btn blue" type="submit">Login</button>
-
-        <p class="register-link">Don't have an account? <a href="{{ route('register') }}" class="form-link">Register</a></p>
+        <p class="register-link">Lupa kata sandi? <a href="{{ route('lupa.kata.sandi') }}" class="form-link">Lupa Password</a></p>
+        <p class="register-link">Tidak mempunyai akun? <a href="{{ route('register') }}" class="form-link">Register</a></p>
 
     </form>
 

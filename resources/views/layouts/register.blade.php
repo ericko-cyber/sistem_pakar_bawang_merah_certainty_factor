@@ -67,7 +67,7 @@
 
         <button class="btn blue" type="submit">Register</button>
 
-        <p class="register-link">Already have an account? <a href="{{ route('login') }}" class="form-link">Login</a></p>
+        <p class="register-link">Sudah Memiliki Akun? <a href="{{ route('login') }}" class="form-link">Login</a></p>
 
     </form>
 

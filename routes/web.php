@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Import the controllers
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LupaPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HistoryController;
@@ -64,6 +65,25 @@ Route::middleware('admin')->group(function () {
     Route::delete('/gejala/{id}', [DaftarGejalaController::class, 'destroy'])->name('gejala.destroy');
 });
 
+// Route untuk menampilkan form input email
+Route::get('lupa-kata-sandi', [LupaPasswordController::class, 'showInputEmail'])->name('lupa.kata.sandi');
+
+// Route untuk mengirimkan OTP ke email
+Route::post('kirim-otp', [LupaPasswordController::class, 'sendOtp'])->name('otp.send');
+
+// Route untuk menampilkan form OTP
+Route::get('otp', [LupaPasswordController::class, 'showOtpForm'])->name('otp.form');
+
+// Route untuk memverifikasi OTP
+Route::post('verifikasi-otp', [LupaPasswordController::class, 'verifyOtp'])->name('otp.verify');
+
+// Route untuk menampilkan form reset password
+Route::get('reset-password', [LupaPasswordController::class, 'showResetPass'])->name('reset.password.form');
+
+// Route untuk melakukan reset password
+Route::post('reset-password', [LupaPasswordController::class, 'resetPassword'])->name('reset.password');
+
+
 // Registration Routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
@@ -72,6 +92,11 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa')->middleware('auth');
 Route::post('/diagnosa/process', [DiagnosaController::class, 'process'])->name('diagnosa.process')->middleware('auth');
 Route::get('/diagnosa/hasil/{id}', [DiagnosaController::class, 'hasil'])->name('diagnosa.hasil')->middleware('auth');
+
+// Lupa Pass
+Route::get('/lupapass', function () {
+    return view('layouts.inputemail');
+})->name('lupapass');
 
 
 // Login Routes
@@ -111,7 +136,6 @@ Route::middleware('auth')->group(function () {
     // Route ke halaman detail riwayat
     Route::get('/history/{id}/detail', [HistoryController::class, 'detail'])->name('history.detail');
     Route::get('/history/{id}/print', [HistoryController::class, 'print'])->name('history.print')->middleware('auth');
-
 });
 
 // Rincian detail penyakit

@@ -223,7 +223,7 @@
                 <h2 class="mb-2"><span>Gallyndra Fatkhu Dinata, S.P., M.P.</span></h2>
                 <p>
                     Gallyndra Fatkhu Dinata, S.P., M.P. merupakan dosen di Jurusan Produksi Pertanian, Politeknik Negeri Jember. 
-                    Beliau memiliki keahlian dalam bidang budidaya pertanian dan pengelolaan tanaman hortikultura, serta aktif dalam berbagai kegiatan penelitian pada tanaman maupun hama. 
+                    Beliau memiliki keahlian dalam bidang budidaya pertanian dan pengelolaan tanaman hortikultura, serta aktif dalam berbagai kegiatan penelitian pada tanaman. 
                     Sebagai pakar, beliau telah banyak membantu mahasiswa dalam mengembangkan penelitian yang aplikatif di bidang pertanian modern.
                 </p>
                 <table>
