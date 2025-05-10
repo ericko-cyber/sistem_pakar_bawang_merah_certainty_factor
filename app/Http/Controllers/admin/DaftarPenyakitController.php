@@ -29,8 +29,6 @@ class DaftarPenyakitController extends Controller
             'deskripsi' => 'required|string',
             'penanganan' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'gejala' => 'required|array', // Memastikan gejala yang dipilih adalah array
-            'gejala.*' => 'exists:gejala,id', // Memastikan ID gejala ada di tabel gejala
         ]);
 
         // Upload gambar
@@ -38,8 +36,6 @@ class DaftarPenyakitController extends Controller
         $namaGambar = time() . '_' . $gambar->getClientOriginalName();
         $gambar->move(public_path('assets/images'), $namaGambar);
 
-        // Mengambil ID gejala yang dipilih dan mengubahnya menjadi string
-        $gejalaIds = implode(',', $request->gejala);
 
         // Simpan data penyakit ke database
         Penyakit::create([
@@ -49,7 +45,6 @@ class DaftarPenyakitController extends Controller
             'deskripsi' => $request->deskripsi,
             'penanganan' => $request->penanganan,
             'gambar' => $namaGambar,
-            'gejala' => $gejalaIds, // Simpan ID gejala dalam bentuk string
         ]);
 
         return redirect()->back()->with('success', 'Data penyakit berhasil ditambahkan!');
@@ -58,10 +53,10 @@ class DaftarPenyakitController extends Controller
 
     public function update(Request $request, $id)
     {
-        // HAPUS ini: dd($request->all());  // <-- Hapus baris ini
-        
+        // Ambil data penyakit berdasarkan ID
         $penyakit = Penyakit::findOrFail($id);
-    
+
+        // Validasi data yang diterima dari request tanpa gejala
         $request->validate([
             'kode_penyakit' => 'required|string|max:10|unique:penyakit,kode_penyakit,' . $penyakit->id,
             'nama_penyakit' => 'required|string|max:100',
@@ -69,12 +64,7 @@ class DaftarPenyakitController extends Controller
             'deskripsi' => 'required|string',
             'penanganan' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'gejala' => 'required|array', // Validasi gejala yang dipilih
-            'gejala.*' => 'exists:gejala,id',
         ]);
-
-        // Menyimpan log dengan memeriksa apakah gejala ada
-        Log::info('Gejala yang diterima: ', ['gejala' => $request->gejala]); // Menyimpan data dalam array
 
         // Update data penyakit
         $penyakit->kode_penyakit = $request->kode_penyakit;
@@ -97,20 +87,12 @@ class DaftarPenyakitController extends Controller
 
             $penyakit->gambar = $namaGambar;
         }
-
-        // Menyinkronkan gejala yang dipilih
-        if ($request->has('gejala')) {
-            $penyakit->gejala = implode(',', $request->gejala); // Simpan ID yang dipilih dalam format string
-            Log::info('Gejala yang dipilih disimpan: ', ['gejala' => $penyakit->gejala]); // Menampilkan gejala yang disimpan
-        } else {
-            $penyakit->gejala = ''; // Jika tidak ada gejala yang dipilih
-        }
-
         // Simpan perubahan penyakit
         $penyakit->save();
 
         return redirect()->back()->with('success', 'Data penyakit berhasil diperbarui!');
     }
+
 
 
     public function destroy($id)

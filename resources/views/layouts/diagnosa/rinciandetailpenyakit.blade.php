@@ -48,11 +48,12 @@
                     <section class="section-container">
                         <h2 class="section-title">Gejala</h2>
                         <ol class="section-text" style="font-weight: 600; font-size: 15px;">
-                            @foreach($gejala_list as $gejala)
-                            <li>{{ $gejala }}</li>
+                            @foreach($penyakit->gejala as $gejala)
+                            <li>{{ $gejala->nama_gejala }}</li>
                             @endforeach
                         </ol>
                     </section>
+
 
                     <section class="section-container">
                         <h2 class="section-title">Penanganan</h2>

@@ -23,6 +23,15 @@
 </div>
 @endif
 
+<style>
+    ul {
+        list-style-type: none;
+        /* Menghapus bullet points */
+        padding-left: 0;
+        /* Menghilangkan indentasi default */
+    }
+</style>
+
 <!-- DataTable -->
 <div class="card mb-4" id="history" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="card-body">
@@ -36,7 +45,6 @@
                     <th>Nama Penyakit</th>
                     <th>Sub Judul</th>
                     <th>Deskripsi</th>
-                    <th>Gejala</th>
                     <th>Penanganan</th>
                     <th>Gambar</th>
                     <th>Aksi</th>
@@ -48,7 +56,6 @@
                     <th>Nama Penyakit</th>
                     <th>Sub Judul</th>
                     <th>Deskripsi</th>
-                    <th>Gejala</th>
                     <th>Penanganan</th>
                     <th>Gambar</th>
                     <th>Aksi</th>
@@ -62,22 +69,15 @@
                     <td>{{ $penyakit->nama_penyakit }}</td>
                     <td>{{ $penyakit->subjudul }}</td>
                     <td>{{ $penyakit->deskripsi }}</td>
+
                     <td>
-                        @php
-                        $id_gejala = explode(',', $penyakit->gejala);
-                        $nama_gejala = collect($id_gejala)->map(function ($id) use ($gejala) {
-                        $gejala = $gejala->firstWhere('id', (int)$id);
-                        return $gejala ? $gejala->nama_gejala : null;
-                        })->filter();
-                        @endphp
                         <ul>
-                            @foreach ($nama_gejala as $nama)
-                            <li>{{ $nama }}</li>
+                            @foreach(explode("\n", $penyakit->penanganan) as $item)
+                            <li>{{ $item }}</li>
                             @endforeach
                         </ul>
                     </td>
 
-                    <td>{{ $penyakit->penanganan }}</td>
                     <td>
                         <img src="{{ asset('assets/images/' . $penyakit->gambar) }}" width="100" alt="Gambar Penyakit">
                     </td>
@@ -132,36 +132,6 @@
                                         <input type="file" class="form-control" name="gambar" accept="image/*">
                                         <small class="form-text text-muted">Gambar saat ini: <br><img src="{{ asset('assets/images/' . $penyakit->gambar) }}" width="100"></small>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Gejala</label>
-                                        <div class="gejala-select-container">
-                                            @php
-                                            $selected_gejala = explode(',', $penyakit->gejala); // Ambil gejala yang sudah ada
-                                            @endphp
-                                            
-                                            <div class="mb-2">
-                                                <button type="button" class="btn btn-sm btn-info pilih-semua-gejala" data-penyakit-id="{{ $penyakit->id }}">Pilih Semua</button>
-                                                <button type="button" class="btn btn-sm btn-warning hapus-semua-gejala" data-penyakit-id="{{ $penyakit->id }}">Hapus Semua</button>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                @foreach($gejala as $item)
-                                                <div class="col-md-6 mb-2">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input gejala-checkbox" type="checkbox" 
-                                                               name="gejala[]" value="{{ $item->id }}" 
-                                                               id="gejala{{ $penyakit->id }}_{{ $item->id }}"
-                                                               data-penyakit-id="{{ $penyakit->id }}"
-                                                               {{ in_array($item->id, $selected_gejala) ? 'checked' : '' }}>
-                                                        <label class="form-check-label" for="gejala{{ $penyakit->id }}_{{ $item->id }}">
-                                                            {{ $item->nama_gejala }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -214,33 +184,6 @@
                         <label for="gambar" class="form-label">Gambar</label>
                         <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
                     </div>
-
-                    <!-- Form Input Gejala sebagai Checkbox -->
-                    <div class="mb-3">
-                        <label class="form-label">Gejala</label>
-                        <div class="gejala-select-container">
-                            <div class="mb-2">
-                                <button type="button" class="btn btn-sm btn-info pilih-semua-gejala" data-penyakit-id="tambah">Pilih Semua</button>
-                                <button type="button" class="btn btn-sm btn-warning hapus-semua-gejala" data-penyakit-id="tambah">Hapus Semua</button>
-                            </div>
-                            
-                            <div class="row">
-                                @foreach($gejala as $item)
-                                <div class="col-md-6 mb-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input gejala-checkbox" type="checkbox" 
-                                               name="gejala[]" value="{{ $item->id }}" 
-                                               id="gejalaTambah_{{ $item->id }}"
-                                               data-penyakit-id="tambah">
-                                        <label class="form-check-label" for="gejalaTambah_{{ $item->id }}">
-                                            {{ $item->nama_gejala }}
-                                        </label>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -250,68 +193,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .custom-select-box {
-        width: 100%;
-        height: auto;
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        background-color: #fff;
-        font-size: 14px;
-        font-family: Arial, sans-serif;
-        box-sizing: border-box;
-        resize: none;
-        transition: all 0.3s ease;
-        overflow-y: auto;
-    }
-
-    .custom-select-box:focus {
-        border-color: #4caf50;
-        outline: none;
-        box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
-    }
-
-    .custom-select-box option {
-        padding: 10px;
-    }
-
-    .custom-select-box option:checked {
-        background-color: #4caf50;
-        color: white;
-    }
-    
-    .gejala-select-container {
-        max-height: 400px;
-        overflow-y: auto;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handler untuk tombol "Pilih Semua"
-        document.querySelectorAll('.pilih-semua-gejala').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const penyakitId = this.getAttribute('data-penyakit-id');
-                document.querySelectorAll(`.gejala-checkbox[data-penyakit-id="${penyakitId}"]`).forEach(function(checkbox) {
-                    checkbox.checked = true;
-                });
-            });
-        });
-        
-        // Handler untuk tombol "Hapus Semua"
-        document.querySelectorAll('.hapus-semua-gejala').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const penyakitId = this.getAttribute('data-penyakit-id');
-                document.querySelectorAll(`.gejala-checkbox[data-penyakit-id="${penyakitId}"]`).forEach(function(checkbox) {
-                    checkbox.checked = false;
-                });
-            });
-        });
-    });
-</script>
 @endsection

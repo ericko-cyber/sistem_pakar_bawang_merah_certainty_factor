@@ -83,6 +83,10 @@ Route::get('reset-password', [LupaPasswordController::class, 'showResetPass'])->
 // Route untuk melakukan reset password
 Route::post('reset-password', [LupaPasswordController::class, 'resetPassword'])->name('reset.password');
 
+// Update pass Profile
+Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])
+    ->name('user.updatePassword')
+    ->middleware('auth');
 
 // Registration Routes
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');

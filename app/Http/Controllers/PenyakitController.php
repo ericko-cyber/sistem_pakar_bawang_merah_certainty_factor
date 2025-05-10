@@ -15,16 +15,13 @@ class PenyakitController extends Controller
         return view('layouts.diagnosa.detailpenyakit', compact('penyakit'));
     }
 
+    // PenyakitController.php
     public function show($id)
     {
-        $penyakit = Penyakit::findOrFail($id); // Ambil data penyakit berdasarkan ID
+        // Ambil data penyakit berdasarkan ID dan muat relasi gejalas
+        $penyakit = Penyakit::with('gejala')->findOrFail($id);
 
-        // Ambil ID gejala yang terkait dengan penyakit ini
-        $gejala_ids = explode(',', $penyakit->gejala);
-
-        // Ambil nama gejala berdasarkan ID
-        $gejala_list = Gejala::whereIn('id', $gejala_ids)->pluck('nama_gejala');
-
-        return view('layouts.diagnosa.rinciandetailpenyakit', compact('penyakit', 'gejala_list'));
+        // Mengirim data penyakit ke view
+        return view('layouts.diagnosa.rinciandetailpenyakit', compact('penyakit'));
     }
 }

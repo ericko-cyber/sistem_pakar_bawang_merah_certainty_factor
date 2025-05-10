@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -14,6 +16,16 @@ class ProfileController extends Controller
         // Return the profile view with the authenticated user details
         return view('layouts.profile', ['account' => $account]);
     }
-}
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'passupdate' => 'required|string|min:8',
+        ]);
 
-?>
+        $user = auth()->user();
+        $user->password = Hash::make($request->passupdate);
+        $user->save();
+
+        return back()->with('success', 'Password berhasil diperbarui.');
+    }
+}

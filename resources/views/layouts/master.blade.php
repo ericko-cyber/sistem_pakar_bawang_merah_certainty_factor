@@ -26,7 +26,7 @@
 			font-weight: 600 !important;
 		}
 
-		.popup-box p{
+		.popup-box p {
 			font-size: 17px !important;
 			font-weight: 400 !important;
 			margin-bottom: 5px;
@@ -203,13 +203,24 @@
 			</div>
 		</div>
 	</header>
-
+	@if(session('success'))
+	<div id="flash-success" style="position: fixed; top: 10px; right: 10px; background: green; color: white; padding: 10px 20px; border-radius: 6px; z-index: 10001;">
+		{{ session('success') }}
+	</div>
+	<script>
+		setTimeout(() => {
+			const flash = document.getElementById('flash-success');
+			if (flash) flash.remove();
+		}, 3000);
+	</script>
+	@endif
 	<!-- Popup Profil -->
 	<div id="popupOverlay"
 		class="overlay-container">
 		<div class="popup-box">
 			<h2 style="color: #fe3f40;">PROFIL</h2>
-			<form class="form-container">
+			<form id="updatePasswordForm" class="form-container" method="POST" action="{{ route('user.updatePassword') }}">
+				@csrf
 				<label class="form-label"
 					for="name">
 					Username:
@@ -241,8 +252,7 @@
 					placeholder="Masukkan Password Baru"
 					id="passupdate"
 					name="passupdate" required>
-				<button class="btn-submit"
-					type="submit">
+				<button class="btn-submit" id="submitBtn" type="submit" disabled>
 					Submit
 				</button>
 			</form>
@@ -254,13 +264,24 @@
 		</div>
 	</div>
 
-		<!-- Scripts -->
-		<script>
+	<!-- Scripts -->
+	<script>
 		function togglePopup() {
 			const overlay = document.getElementById('popupOverlay');
 			overlay.classList.toggle('show');
 		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const passwordInput = document.getElementById("passupdate");
+			const submitBtn = document.getElementById("submitBtn");
+
+			passwordInput.addEventListener("input", function() {
+				const value = passwordInput.value;
+				submitBtn.disabled = value.length < 8;
+			});
+		});
 	</script>
+
 
 	<div class="content">
 		@yield('content')
