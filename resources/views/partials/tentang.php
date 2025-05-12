@@ -200,7 +200,8 @@
         position: relative;
         z-index: 1;
     }
-    p{
+
+    p {
         font-size: 15px;
         font-weight: 600;
     }
@@ -217,14 +218,12 @@
         </div>
         <div class="bottom-subcontainer">
             <div class="left">
-                <img src="assets/images/foto_pakar.jpg" alt="Gallyndra Fatkhu Dinata">
+                <img src="assets/images/pakar.jpeg" alt="Gallyndra Fatkhu Dinata">
             </div>
             <div class="right">
                 <h2 class="mb-2"><span>Gallyndra Fatkhu Dinata, S.P., M.P.</span></h2>
                 <p>
-                    Gallyndra Fatkhu Dinata, S.P., M.P. merupakan dosen di Jurusan Produksi Pertanian, Politeknik Negeri Jember. 
-                    Beliau memiliki keahlian dalam bidang budidaya pertanian dan pengelolaan tanaman hortikultura, serta aktif dalam berbagai kegiatan penelitian pada tanaman. 
-                    Sebagai pakar, beliau telah banyak membantu mahasiswa dalam mengembangkan penelitian yang aplikatif di bidang pertanian modern.
+                    Gallyndra Fatkhu Dinata, S.P., M.P. adalah dosen tetap di Jurusan Produksi Pertanian, Politeknik Negeri Jember yang menekuni bidang fitopatologi, khususnya bakteriologi, mikologi, dan pengendalian hayati. Saat ini menjabat sebagai Kepala Laboratorium Perlindungan Tanaman dan mengampu mata kuliah terkait perlindungan tanaman. Beliau aktif dalam penelitian, pengabdian masyarakat, pengembangan bahan ajar, serta membimbing mahasiswa dalam kompetisi ilmiah seperti PKM dan Pimnas.
                 </p>
                 <table>
                     <tr>

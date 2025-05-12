@@ -143,7 +143,6 @@
                                             <option value="0.8">Hampir Pasti (80%)</option>
                                             <option value="0.6">Kemungkinan Besar (60%)</option>
                                             <option value="0.4">Mungkin (40%)</option>
-                                            <option value="0">Tidak Tahu (0%)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -156,7 +155,6 @@
                                     <li><strong>Hampir Pasti (80%)</strong>: Anda cukup yakin gejala ini terjadi</li>
                                     <li><strong>Kemungkinan Besar (60%)</strong>: Anda melihat gejala ini ada tapi tidak terlalu jelas</li>
                                     <li><strong>Mungkin (40%)</strong>: Anda tidak yakin tapi ada kemungkinan gejala ini terjadi</li>
-                                    <li><strong>Tidak Tahu (0%)</strong>: Anda sama sekali tidak yakin/tidak tahu</li>
                                 </ul>
                             </div>
 
@@ -278,10 +276,6 @@
                         value: '0.4',
                         label: 'Mungkin (40%)',
                         selected: currentValue === '0.4'
-                    }, {
-                        value: '0',
-                        label: 'Tidak Tahu (0%)',
-                        selected: currentValue === '0'
                     }],
                     'value',
                     'label',
