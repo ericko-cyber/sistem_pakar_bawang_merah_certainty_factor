@@ -11,6 +11,7 @@
 	<base href="{{ url('/') }}/">
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="icon" href="{{ asset('bawang.ico') }}" type="image/x-icon">
 
 	<!-- Additional CSS Files -->
 	<link rel="stylesheet" href="{{ asset('assets/css/fontawesome.css') }}">
@@ -19,46 +20,9 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/owl.css') }}">
 
 	<style>
-		.main-red-button {
-			margin-right: 10px;
-			/* Memberikan jarak kanan antar tombol */
-		}
-
-		.popup-box h2 {
-			margin-bottom: 20px !important;
-			font-weight: 600 !important;
-		}
-
-		.popup-box p {
-			font-size: 17px !important;
-			font-weight: 400 !important;
-			margin-bottom: 5px;
-		}
-
-
-		/* Tombol untuk membuka popup */
-		.btn-open-popup {
-			padding: 12px 24px;
-			font-size: 18px;
-			background-color: green;
-			color: #fff;
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-			position: fixed;
-			top: 20px;
-			right: 20px;
-		}
-
-		.btn-open-popup:hover {
-			background-color: #4caf50;
-		}
-
-		/* Overlay untuk popup */
-		.overlay-container {
+		/* Bungkus semua selector popup profile di dalam .popup-overlay */
+		.popup-overlay .overlay-container {
 			display: none;
-			/* Awalnya tersembunyi */
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -67,79 +31,23 @@
 			background: rgba(0, 0, 0, 0.6);
 			justify-content: center;
 			align-items: center;
-			opacity: 0;
-			transition: opacity 0.3s ease;
 			z-index: 9999;
-			/* Pastikan di atas elemen lain */
+		}
+
+		/* Popup aktif */
+		.popup-overlay .overlay-container.show {
+			display: flex;
 		}
 
 		/* Kotak popup */
-		.popup-box {
+		.popup-overlay .popup-box {
 			background: #fff;
-			padding: 24px;
+			padding: 20px;
 			border-radius: 12px;
-			box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-			width: 320px;
-			text-align: center;
-			opacity: 0;
-			transform: scale(0.8);
-			animation: fadeInUp 0.5s ease-out forwards;
-			z-index: 10000;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+			max-width: 90%;
 			position: relative;
-		}
-
-		/* Form di dalam popup */
-		.form-container {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-		}
-
-		/* Label input */
-		.form-label {
-			font-size: 16px;
-			color: #444;
-			text-align: left;
-		}
-
-		/* Input field */
-		.form-input {
-			padding: 10px;
-			border: 1px solid #ccc;
-			border-radius: 8px;
-			font-size: 16px;
-			width: 100%;
-			box-sizing: border-box;
-		}
-
-		/* Tombol Submit dan Close */
-		.btn-submit,
-		.btn-close-popup {
-			padding: 12px 24px;
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-			width: 100%;
-		}
-
-		.btn-submit {
-			background-color: green;
-			color: #fff;
-		}
-
-		.btn-submit:hover {
-			background-color: #4caf50;
-		}
-
-		.btn-close-popup {
-			margin-top: 12px;
-			background-color: #e74c3c;
-			color: #fff;
-		}
-
-		.btn-close-popup:hover {
-			background-color: #c0392b;
+			animation: fadeInUp 0.3s ease-out forwards;
 		}
 
 		/* Animasi untuk fade-in popup */
@@ -155,15 +63,168 @@
 			}
 		}
 
-		/* Overlay aktif */
-		.overlay-container.show {
+		.popup-overlay .popup-box h2 {
+			margin-bottom: 15px;
+			font-weight: 600;
+			color: #fe3f40;
+			text-align: center;
+		}
+
+		/* Tab navigation styles */
+		.popup-overlay .tab-navigation {
 			display: flex;
-			opacity: 1;
+			margin-bottom: 15px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.popup-overlay .tab-button {
+			flex: 1;
+			padding: 8px 12px;
+			background: #f8f8f8;
+			border: none;
+			border-radius: 8px 8px 0 0;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.2s ease;
+			color: #555;
+		}
+
+		.popup-overlay .tab-button:hover {
+			background: #f0f0f0;
+		}
+
+		.popup-overlay .tab-button.active {
+			background: #fe3f40;
+			color: white;
+		}
+
+		/* Tab content styles */
+		.popup-overlay .tab-content {
+			display: none;
+		}
+
+		.popup-overlay .tab-content.active {
+			display: block;
+		}
+
+		/* Form container */
+		.popup-overlay .form-container {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		/* Form layout improvements */
+		.popup-overlay .form-row {
+			display: flex;
+			gap: 10px;
+		}
+
+		.popup-overlay .form-group {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+
+		/* Label and input styling */
+		.popup-overlay .form-label {
+			font-size: 14px;
+			color: #444;
+			font-weight: 500;
+		}
+
+		.popup-overlay .form-input {
+			padding: 8px 10px;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			font-size: 14px;
+			transition: border-color 0.2s;
+		}
+
+		.popup-overlay .form-input:focus {
+			border-color: #fe3f40;
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(254, 63, 64, 0.1);
+		}
+
+		.popup-overlay textarea.form-input {
+			resize: vertical;
+			min-height: 60px;
+		}
+
+		/* Button styling */
+		.popup-overlay .btn-submit,
+		.popup-overlay .btn-close-popup {
+			padding: 10px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 500;
+			transition: all 0.2s ease;
+			margin-top: 5px;
+		}
+
+		.popup-overlay .btn-submit {
+			background-color: #fe3f40;
+			color: white;
+		}
+
+		.popup-overlay .btn-submit:hover {
+			background-color: #e53638;
+		}
+
+		.popup-overlay .btn-close-popup {
+			background-color: #f2f2f2;
+			color: #333;
+			margin-top: 10px;
+		}
+
+		.popup-overlay .btn-close-popup:hover {
+			background-color: #e8e8e8;
+		}
+
+		/* Success notification */
+		.popup-overlay .notification {
+			position: fixed;
+			top: 80px;
+			right: 20px;
+			background: #4CAF50;
+			color: white;
+			padding: 12px 20px;
+			border-radius: 6px;
+			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+			z-index: 10001;
+			animation: slideIn 0.3s ease-out forwards;
+		}
+
+		@keyframes slideIn {
+			from {
+				opacity: 0;
+				transform: translateX(50px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		/* Responsive adjustments */
+		@media (max-width: 480px) {
+			.popup-overlay .form-row {
+				flex-direction: column;
+				gap: 12px;
+			}
+
+			.popup-overlay .popup-box {
+				width: 85%;
+				padding: 15px;
+			}
 		}
 	</style>
-
 </head>
-@stack('scripts')
+
 
 <body>
 
@@ -174,7 +235,9 @@
 					<nav class="main-nav">
 						<!-- ***** Logo Start ***** -->
 						<a href="index.html" class="logo">
-							<h4>Sistem<span>Pakar</span></h4>
+							<a href="" class="logo">
+								<h4>Shallot<span>Detect</span></h4>
+							</a>
 						</a>
 						<!-- ***** Logo End ***** -->
 						<!-- ***** Menu Start ***** -->
@@ -190,14 +253,14 @@
 							<li class="{{ request()->routeIs('history') ? 'active' : '' }}">
 								<a href="{{ route('history') }}">Riwayat</a>
 							</li>
-							<li class="d-flex align-items-center ">
+							<li class="d-flex align-items-center">
 								@if(Auth::check())
-								<a href="javascript:void(0);" class="main-red-button " onclick="togglePopup()">Profil</a>
-								<a href="#" class="main-red-button"
+								<a href="javascript:void(0);" class="main-red-button" onclick="togglePopup()">Profil</a>
+								<a href="#" class="main-red-button" style="margin-left: 10px;"
 									onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 									Logout
 								</a>
-								<form id="logout-form" class="" action="{{ route('logout') }}" method="POST" style="display: none;">
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 									@csrf
 								</form>
 								@else
@@ -216,84 +279,120 @@
 		</div>
 	</header>
 
-	<!-- Popup Profil -->
 	@if(session('success'))
-	<div id="flash-success" style="position: fixed; top: 10px; right: 10px; background: green; color: white; padding: 10px 20px; border-radius: 6px; z-index: 10001;">
+	<div id="flash-success" class="notification">
 		{{ session('success') }}
 	</div>
 	<script>
 		setTimeout(() => {
 			const flash = document.getElementById('flash-success');
-			if (flash) flash.remove();
+			if (flash) {
+				flash.style.opacity = '0';
+				flash.style.transform = 'translateX(50px)';
+				flash.style.transition = 'all 0.3s ease';
+				setTimeout(() => flash.remove(), 300);
+			}
 		}, 3000);
 	</script>
 	@endif
-	<!-- Popup Profil -->
-	<div id="popupOverlay"
-		class="overlay-container">
-		<div class="popup-box">
-			<h2 style="color: #fe3f40;">PROFIL</h2>
-			<form id="updatePasswordForm" class="form-container" method="POST" action="{{ route('user.updatePassword') }}">
-				@csrf
-				<label class="form-label"
-					for="name">
-					Username:
-				</label>
-				<p>{{ Auth::user()->username ?? 'Guest' }}</p>
-				<label class="form-label"
-					for="name">
-					Umur:
-				</label>
-				<p>{{ Auth::user()->umur ?? 'Guest' }}</p>
-				<label class="form-label"
-					for="name">
-					Telp:
-				</label>
-				<p>{{ Auth::user()->telp ?? 'Guest' }}</p>
-				<label class="form-label"
-					for="name">
-					Email:
-				</label>
-				<p>{{ Auth::user()->email ?? 'Guest' }}</p>
-				<label class="form-label"
-					for="name">
-					Alamat:
-				</label>
-				<p>{{ Auth::user()->alamat ?? 'Guest' }}</p>
-				<label class="form-label" for="passupdate">Update Password:</label>
-				<input class="form-input"
-					type="password"
-					placeholder="Masukkan Password Baru"
-					id="passupdate"
-					name="passupdate" required>
-				<button class="btn-submit" id="submitBtn" type="submit" disabled>
-					Submit
-				</button>
-			</form>
 
-			<button class="btn-close-popup"
-				onclick="togglePopup()">
-				Close
-			</button>
+	<!-- Popup Profil -->
+	<div class="popup-overlay">
+		<div id="popupOverlay" class="overlay-container">
+			<div class="popup-box">
+				<h2>PROFIL</h2>
+
+				<!-- Tab Navigation -->
+				<div class="tab-navigation">
+					<button class="tab-button active" onclick="openTab('profileTab', this)">Profile</button>
+					<button class="tab-button" onclick="openTab('passwordTab', this)">Password</button>
+				</div>
+
+				<!-- Profile Tab Content -->
+				<div id="profileTab" class="tab-content active">
+					<form id="updateProfileForm" class="form-container" method="POST" action="{{ route('user.updateProfile') }}">
+						@csrf
+						<div class="form-row">
+							<div class="form-group">
+								<label class="form-label" for="username">Username</label>
+								<input class="form-input" type="text" id="username" name="username" value="{{ Auth::user()->username ?? 'Guest' }}" required>
+							</div>
+							<div class="form-group">
+								<label class="form-label" for="email">Email</label>
+								<input class="form-input" type="email" id="email" name="email" value="{{ Auth::user()->email ?? 'Guest' }}" required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label class="form-label" for="umur">Umur</label>
+								<input class="form-input" type="number" id="umur" name="umur" value="{{ Auth::user()->umur ?? '' }}">
+							</div>
+							<div class="form-group">
+								<label class="form-label" for="telp">Telp</label>
+								<input class="form-input" type="text" id="telp" name="telp" value="{{ Auth::user()->telp ?? '' }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="form-label" for="alamat">Alamat</label>
+							<textarea class="form-input" id="alamat" name="alamat" rows="2">{{ Auth::user()->alamat ?? '' }}</textarea>
+						</div>
+
+						<button class="btn-submit" type="submit">
+							Update Profile
+						</button>
+					</form>
+				</div>
+
+				<!-- Password Tab Content -->
+				<div id="passwordTab" class="tab-content">
+					<form id="updatePasswordForm" class="form-container" method="POST" action="{{ route('user.updatePassword') }}">
+						@csrf
+						<div class="form-group">
+							<label class="form-label" for="passupdate">Password Baru</label>
+							<input class="form-input" type="password" id="passupdate" name="passupdate" placeholder="Masukkan Password Baru" required>
+						</div>
+
+						<button class="btn-submit" type="submit">
+							Update Password
+						</button>
+					</form>
+				</div>
+
+				<button class="btn-close-popup" onclick="togglePopup()">
+					Close
+				</button>
+			</div>
 		</div>
 	</div>
-
-	<!-- Scripts -->
 	<script>
+		// Toggle popup visibility
 		function togglePopup() {
-			const overlay = document.getElementById('popupOverlay');
-			overlay.classList.toggle('show');
+			const popup = document.getElementById('popupOverlay');
+			popup.classList.toggle('show');
 		}
 
-		document.addEventListener("DOMContentLoaded", function() {
-			const passwordInput = document.getElementById("passupdate");
-			const submitBtn = document.getElementById("submitBtn");
+		// Tab switching functionality
+		function openTab(tabName, buttonElement) {
+			// Hide all tab contents
+			const tabContents = document.getElementsByClassName("tab-content");
+			for (let i = 0; i < tabContents.length; i++) {
+				tabContents[i].classList.remove("active");
+			}
 
-			passwordInput.addEventListener("input", function() {
-				const value = passwordInput.value;
-				submitBtn.disabled = value.length < 8;
-			});
-		});
+			// Remove active class from all tab buttons
+			const tabButtons = document.getElementsByClassName("tab-button");
+			for (let i = 0; i < tabButtons.length; i++) {
+				tabButtons[i].classList.remove("active");
+			}
+
+			// Show the selected tab content
+			document.getElementById(tabName).classList.add("active");
+
+			// Add active class to the clicked button
+			buttonElement.classList.add("active");
+		}
 	</script>
 
 	<div class="content">

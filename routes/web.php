@@ -120,6 +120,7 @@ Route::get('home', [HomeController::class, 'index'])->name('home');
 
 // Profile Route
 Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
 
 // Gejala Routes
 // Route::get('/diagnosa', [GejalaController::class, 'index'])->name('diagnosa')->middleware('auth');
