@@ -65,7 +65,7 @@ $gejala = DB::table('gejala')->get();
                     <div class="row">
                         <div class=" align-self-center">
                             <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
-                                <h2><em>Kenali</em> <span>Gejala</span> Sekarang Juga</h2>
+                                <h2><em>Kenali</em> Gambar <span>Gejala</span> Sekarang Juga</h2>
                             </div>
                         </div>
                     </div>
