@@ -198,6 +198,18 @@
 			animation: slideIn 0.3s ease-out forwards;
 		}
 
+		.popup-overlay .popup-box {
+			width: 500px;
+			max-width: 90%;
+			transition: width 0.3s ease, min-height 0.3s ease;
+			/* style lain seperti sebelumnya */
+		}
+
+		.popup-overlay .popup-box.password-tab {
+			width: 400px;
+		}
+
+
 		@keyframes slideIn {
 			from {
 				opacity: 0;
@@ -374,6 +386,29 @@
 		}
 
 		// Tab switching functionality
+		function openTab(tabId, btn) {
+			// Hide semua tab-content
+			document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+			// Hapus active dari semua tombol tab
+			document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+
+			// Show tab yang diklik
+			document.getElementById(tabId).classList.add('active');
+
+			// Tambahkan active pada tombol yang diklik
+			btn.classList.add('active');
+
+			// Ambil popup-box
+			const popupBox = document.querySelector('.popup-overlay .popup-box');
+
+			if (tabId === 'passwordTab') {
+				popupBox.classList.add('password-tab');
+			} else {
+				popupBox.classList.remove('password-tab');
+			}
+		}
+
 		function openTab(tabName, buttonElement) {
 			// Hide all tab contents
 			const tabContents = document.getElementsByClassName("tab-content");

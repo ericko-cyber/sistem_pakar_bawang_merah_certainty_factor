@@ -85,10 +85,46 @@
             </tr>
             <tr>
                 <th>Penanganan</th>
-                <td>{{ $riwayat->penyakit->penanganan ?? '-' }}</td>
+                <td>
+                    @if(!empty($riwayat->penyakit->penanganan))
+                    @php
+                    $list_penanganan = preg_split('/\r\n|\r|\n/', $riwayat->penyakit->penanganan);
+                    @endphp
+                    <ul>
+                        @foreach($list_penanganan as $item)
+                        <li>{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                    @else
+                    -
+                    @endif
+                </td>
             </tr>
         </tbody>
     </table>
+    <br>
+
+    {{-- Tambahkan section kemungkinan penyakit lainnya --}}
+    @if(!empty($alternativeDiagnoses) && count($alternativeDiagnoses) > 0)
+    <h5>Alternatif Kemungkinan Penyakit Lainnya</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Penyakit</th>
+                <th>Persentase</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($alternativeDiagnoses as $alt)
+            <tr>
+                <td>{{ $alt['penyakit']['nama_penyakit'] ?? '-' }}</td>
+                <td>{{ number_format($alt['nilai'] * 100, 2) }}%</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+
 
     <div class="text-center mt-4 no-print">
         @if ($role === 'admin')

@@ -88,6 +88,7 @@ class DiagnosaController extends Controller
             'id_penyakit' => $terbesar['penyakit']->id,
             'nilai' => ($terbesar['nilai'] * 100) . '%',
             'tanggal' => now(),
+            'hasil_diagnosa' => json_encode($hasil), // Store all results in JSON format
         ]);
 
         if (!$riwayat) {
@@ -100,6 +101,16 @@ class DiagnosaController extends Controller
     public function hasil($id)
     {
         $riwayat = RiwayatDiagnosa::with(['user', 'penyakit'])->findOrFail($id);
-        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat'));
+
+        // Get alternative diagnoses from the JSON field
+        $alternativeDiagnoses = [];
+        if (isset($riwayat->hasil_diagnosa)) {
+            $hasilDiagnosa = json_decode($riwayat->hasil_diagnosa, true);
+
+            // Skip the first item (primary diagnosis) and get up to 3 alternatives
+            $alternativeDiagnoses = array_slice($hasilDiagnosa, 1, 3);
+        }
+
+        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat', 'alternativeDiagnoses'));
     }
 }

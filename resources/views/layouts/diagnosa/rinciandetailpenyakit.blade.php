@@ -56,7 +56,7 @@
 
 
                     <section class="section-container">
-                        <h2 class="section-title">Penanganan</h2>
+                        <h2 class="section-title">Pengendalian</h2>
                         <ol class="section-text" style="font-weight: 600; font-size: 15px;">
                             @foreach(explode("\n", $penyakit->penanganan) as $item)
                             <li>{{ $item }}</li>

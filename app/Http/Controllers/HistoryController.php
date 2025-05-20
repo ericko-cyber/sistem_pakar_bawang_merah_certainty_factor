@@ -31,25 +31,34 @@ class HistoryController extends Controller
     public function detail($id)
     {
         $role = auth()->user()->role;
-        // Ambil data RiwayatDiagnosa berdasarkan ID
         $riwayat = RiwayatDiagnosa::with('penyakit', 'user')->findOrFail($id);
 
-        // Mengecek apakah riwayat ditemukan
-        if (!$riwayat) {
-            abort(404, 'Riwayat tidak ditemukan');
+        // Ambil alternative diagnoses dari JSON hasil diagnosa
+        $alternativeDiagnoses = [];
+        if (!empty($riwayat->hasil_diagnosa)) {
+            $hasilDiagnosa = json_decode($riwayat->hasil_diagnosa, true);
+            // Ambil selain utama (index 0), misal 3 alternatif
+            $alternativeDiagnoses = array_slice($hasilDiagnosa, 1, 3);
         }
 
-        // Kirim data ke tampilan
-        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat', 'role'));
+        return view('layouts.diagnosa.hasildiagnosa', compact('riwayat', 'role', 'alternativeDiagnoses'));
     }
+
 
     public function print($id)
     {
         $riwayat = \App\Models\RiwayatDiagnosa::with('penyakit', 'user')->findOrFail($id);
-
         $role = auth()->user()->role;
 
-        // Kirim data riwayat dan role ke tampilan
-        return view('layouts.diagnosa.print', compact('riwayat', 'role'));
+        // Decode hasil_diagnosa untuk alternatif diagnosa
+        $hasilDiagnosa = json_decode($riwayat->hasil_diagnosa, true);
+        $alternativeDiagnoses = [];
+        if ($hasilDiagnosa) {
+            // Ambil alternatif setelah utama, maksimal 3
+            $alternativeDiagnoses = array_slice($hasilDiagnosa, 1, 3);
+        }
+
+        // Kirim data riwayat, role, dan alternativeDiagnoses ke view
+        return view('layouts.diagnosa.print', compact('riwayat', 'role', 'alternativeDiagnoses'));
     }
 }

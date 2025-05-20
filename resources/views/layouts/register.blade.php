@@ -5,7 +5,7 @@
 @section('content')
 <div class="register">
 
-    <h1>Register dulu gan</h1>
+    <h1>Register dulu </h1>
 
     <form action="{{ route('register') }}" method="post" class="form register-form">
 

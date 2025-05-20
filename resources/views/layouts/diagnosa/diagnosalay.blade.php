@@ -151,10 +151,11 @@
                             <div class="cf-info">
                                 <p><strong>Keterangan tingkat keyakinan:</strong></p>
                                 <ul>
-                                    <li><strong>Pasti (100%)</strong>: Anda yakin 100% gejala ini terjadi</li>
+                                    <!-- <li><strong>Pasti (100%)</strong>: Anda yakin 100% gejala ini terjadi</li> -->
                                     <li><strong>Hampir Pasti (80%)</strong>: Anda cukup yakin gejala ini terjadi</li>
                                     <li><strong>Kemungkinan Besar (60%)</strong>: Anda melihat gejala ini ada tapi tidak terlalu jelas</li>
                                     <li><strong>Mungkin (40%)</strong>: Anda tidak yakin tapi ada kemungkinan gejala ini terjadi</li>
+                                    <li><strong>Tidak Yakin (20%)</strong>:  Anda sama sekali tidak yakin/tidak tahu</li>
                                 </ul>
                             </div>
 
@@ -241,7 +242,7 @@
                     }].concat(
                         gejalaList.map(g => ({
                             value: g.id,
-                            label: g.nama_gejala,
+                            label: `${g.kode_gejala} - ${g.nama_gejala}`, // <- update label jadi kode - nama
                             disabled: selectedValues.includes(String(g.id)) && String(g.id) !== currentValue,
                             selected: String(g.id) === currentValue
                         }))
@@ -261,10 +262,6 @@
                         label: 'Kondisi',
                         selected: currentValue === ''
                     }, {
-                        value: '1.0',
-                        label: 'Pasti (100%)',
-                        selected: currentValue === '1.0'
-                    }, {
                         value: '0.8',
                         label: 'Hampir Pasti (80%)',
                         selected: currentValue === '0.8'
@@ -276,6 +273,10 @@
                         value: '0.4',
                         label: 'Mungkin (40%)',
                         selected: currentValue === '0.4'
+                    }, {
+                        value: '0.2',
+                        label: 'Tidak Yakin (20%)',
+                        selected: currentValue === '0.2'
                     }],
                     'value',
                     'label',
@@ -308,23 +309,20 @@
                 <div class="select-wrapper">
                     <select name="gejala[]" class="form-control input-lg mt-2 gejala-select">
                         <option value="">Pilih Gejala</option>
-                        @foreach($gejala_list as $gejala)
-                        <option value="{{ $gejala->id }}">{{ $gejala->nama_gejala }}</option>
-                        @endforeach
                     </select>
                 </div>
                 <div class="select-wrapper">
                     <select name="cf_user[]" class="form-control input-lg mt-2 cf-select">
                         <option value="">Kondisi</option>
-                        <option value="1.0">Pasti (100%)</option>
                         <option value="0.8">Hampir Pasti (80%)</option>
                         <option value="0.6">Kemungkinan Besar (60%)</option>
                         <option value="0.4">Mungkin (40%)</option>
-                        <option value="0">Tidak Tahu (0%)</option>
+                        <option value="0.2">Tidak Yakin (20%)</option>
                     </select>
                 </div>
             </div>
-        `;
+            `;
+
 
             $("#gejala-container").append(newDropdown);
 

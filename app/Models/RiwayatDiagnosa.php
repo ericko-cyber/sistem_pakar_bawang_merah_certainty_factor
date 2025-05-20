@@ -18,6 +18,7 @@ class RiwayatDiagnosa extends Model
         'id_user',
         'id_penyakit',
         'nilai',
+        'hasil_diagnosa',
         'tanggal',
     ];
 

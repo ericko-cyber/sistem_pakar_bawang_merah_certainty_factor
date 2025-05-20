@@ -67,10 +67,10 @@
                     <td>{{ $user->role }}</td>
                     <td>{{ $user->registered }}</td>
                     <td>
-                        @if($user->role !== 'admin')
                         <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal{{ $user->id }}">
                             Edit
                         </a>
+                        @if($user->role !== 'admin')
                         <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Yakin ingin menghapus user ini?');">
                             @csrf
                             @method('DELETE')
