@@ -40,11 +40,9 @@ class RegisterController extends Controller
             'role' => 'user',
         ]);
 
-        // Authenticate the new account
-        Auth::login($account);
 
         // Redirect to homepage
-        return redirect('home');
+        return redirect('login');
     }
 }
 
