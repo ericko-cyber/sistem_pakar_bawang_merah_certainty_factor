@@ -6,7 +6,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="{{ asset('assets/css/history.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/homeadmin.css') }}">
 
 
 <div class="main-banner  wow fadeIn " id="diagnosa" data-wow-duration="1s" data-wow-delay="0.5s">
