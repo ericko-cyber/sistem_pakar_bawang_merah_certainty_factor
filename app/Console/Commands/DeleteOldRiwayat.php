@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\RiwayatDiagnosa;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class DeleteOldRiwayat extends Command
 {
@@ -13,6 +14,7 @@ class DeleteOldRiwayat extends Command
 
     public function handle()
     {
+        Log::info('Command riwayat:delete-old dijalankan cron job pada '.now());
         $cutoffDate = Carbon::now()->subDays(7);
         $deleted = RiwayatDiagnosa::where('tanggal', '<', $cutoffDate)->delete();
 

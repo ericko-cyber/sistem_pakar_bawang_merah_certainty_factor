@@ -11,6 +11,9 @@ class LoginController extends Controller
     // Show login form
     public function showLoginForm()
     {
+        if (Auth::check()) {
+            return redirect('/home'); // Ganti dengan redirect ke /dashboard jika diperlukan
+        }
         return view('layouts.login');
     }
 
@@ -22,30 +25,30 @@ class LoginController extends Controller
             'username' => 'required|string|max:50',
             'password' => 'required|string',
         ]);
-    
+
         // Coba login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-    
+
             $user = Auth::user(); // dapatkan user yang sedang login
-    
+
             // Cek role dan redirect sesuai role
             if ($user->role === 'admin') {
                 return redirect()->intended('/dashboard');
             } elseif ($user->role === 'user') {
                 return redirect()->intended('/home');
             }
-    
+
             // Fallback redirect kalau role tidak dikenali
             return redirect('/login')->withErrors(['username' => 'Role tidak dikenali.']);
         }
-    
+
         // Gagal login
         return back()->withErrors([
             'username' => 'Invalid credentials.',
         ])->withInput();
     }
-    
+
 
     // Handle logout
     public function logout(Request $request)
@@ -59,5 +62,3 @@ class LoginController extends Controller
         return redirect('login');
     }
 }
-
-?>

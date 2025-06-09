@@ -11,7 +11,18 @@
                             <form id="search" action="#" method="GET">
                                 <fieldset style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
                                     <div class="email">Masalah Pada Tanaman</div>
+                                    @if(Auth::check())
+                                    @if(Auth::user()->role === 'admin')
+                                    <!-- Jika admin klik tombol Konsultasi Sekarang, kita refresh halaman /home -->
+                                    <a href="#" class="main-button" onclick="reloadHomePage()">Konsultasi Sekarang</a>
+                                    @else
+                                    <!-- Jika user klik tombol Konsultasi Sekarang, diarahkan ke halaman diagnosa -->
                                     <a href="{{ route('diagnosa') }}" class="main-button">Konsultasi Sekarang</a>
+                                    @endif
+                                    @else
+                                    <!-- Jika pengguna belum login, tombol Login bisa muncul (sesuai kebutuhan Anda) -->
+                                    <a href="{{ route('login') }}" class="main-button">Konsultasi Sekarang</a>
+                                    @endif
                                 </fieldset>
                             </form>
 

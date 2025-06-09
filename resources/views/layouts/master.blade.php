@@ -236,6 +236,18 @@
 		}
 	</style>
 </head>
+<script>
+	// Fungsi untuk memuat ulang halaman /home saat admin klik tombol Diagnosa
+	function reloadHomePage() {
+		// Cek apakah halaman saat ini adalah /home
+		if (window.location.pathname === '/home') {
+			location.reload(); // Memuat ulang halaman /home
+		} else {
+			// Jika tidak berada di /home, arahkan ke /home
+			window.location.href = '/home';
+		}
+	}
+</script>
 
 <body>
 	<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
@@ -254,10 +266,26 @@
 							<li class="scroll-to-section"><a href="#about">Basic Pengetahuan</a></li>
 							<li class="scroll-to-section"><a href="#PP">Panduan Penggunaan</a></li>
 							<li class="scroll-to-section"><a href="#tentang">Tentang Pakar</a></li>
-							<li><a href="{{ route('diagnosa') }}">Diagnosa</a></li>
+							<li>
+								@if(Auth::check())
+								@if(Auth::user()->role === 'admin')
+								<!-- Jika admin klik tombol Diagnosa, kita mencegah pengalihan dan memuat ulang halaman /home -->
+								<a href="#" onclick="reloadHomePage()">Diagnosa</a>
+								@else
+								<!-- Jika user klik tombol Diagnosa, arahkan ke halaman diagnosa -->
+								<a href="{{ route('diagnosa') }}">Diagnosa</a>
+								@endif
+								@else
+								<!-- Jika pengguna belum login, tombol Login akan muncul -->
+								<a href="{{ route('login') }}">Diagnosa</a>
+								@endif
+							</li>
 							<li class="d-flex align-items-center">
 								@if(Auth::check())
-								<a href="#" class="main-red-button" onclick="togglePopup()">Profil</a>
+								@if(Auth::user()->role === 'user')
+								<!-- Tombol Profil hanya untuk user -->
+								<a href="{{ route('profile') }}" class="main-red-button">Profil</a>
+								@endif
 								<a href="#" class="main-red-button"
 									onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 									Logout

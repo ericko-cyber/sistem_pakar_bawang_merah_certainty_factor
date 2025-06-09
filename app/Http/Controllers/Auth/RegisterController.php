@@ -13,6 +13,9 @@ class RegisterController extends Controller
     // Show registration form
     public function showRegistrationForm()
     {
+        if (Auth::check()) {
+            return redirect('/home'); // Ganti dengan redirect ke /dashboard jika diperlukan
+        }
         return view('layouts.register');
     }
 
@@ -45,5 +48,3 @@ class RegisterController extends Controller
         return redirect('login');
     }
 }
-
-?>

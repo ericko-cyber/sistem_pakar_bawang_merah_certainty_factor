@@ -9,7 +9,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('riwayat:delete-old')->daily();
+        $schedule->command('riwayat:delete-old')->everyMinute();
     }
 
     protected function commands()

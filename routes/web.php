@@ -34,19 +34,19 @@ Route::get('/', function () {
 // Admin Routes
 Route::middleware('admin')->group(function () {
     // Dashboard Admin
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
 
     // Daftar User
-    Route::get('/daftaruser', [DaftarUserController::class, 'index'])->name('daftaruser')->middleware('auth');
+    Route::get('/daftaruser', [DaftarUserController::class, 'index'])->name('daftaruser');
     Route::delete('/user/{id}', [DaftarUserController::class, 'destroy'])->name('user.destroy');
     Route::post('/user', [DaftarUserController::class, 'store'])->name('user.store');
     Route::get('/user/edit/{id}', [DaftarUserController::class, 'edit'])->name('user.edit');
     Route::put('/user/update/{id}', [DaftarUserController::class, 'update'])->name('user.update');
 
     // Rules
-    Route::get('/rules', [RulesController::class, 'index'])->name('rules')->middleware('auth');
+    Route::get('/rules', [RulesController::class, 'index'])->name('rules');
     Route::post('/rules', [RulesController::class, 'store'])->name('rules.store');
     Route::put('/rules/{id}', [RulesController::class, 'update'])->name('rules.update');
     Route::delete('/rules/{id}', [RulesController::class, 'destroy'])->name('rules.destroy');
@@ -65,47 +65,69 @@ Route::middleware('admin')->group(function () {
     Route::delete('/gejala/{id}', [DaftarGejalaController::class, 'destroy'])->name('gejala.destroy');
 });
 
-// Route untuk menampilkan form input email
-Route::get('lupa-kata-sandi', [LupaPasswordController::class, 'showInputEmail'])->name('lupa.kata.sandi');
+Route::middleware('user')->group(function () {
 
-// Route untuk mengirimkan OTP ke email
-Route::post('kirim-otp', [LupaPasswordController::class, 'sendOtp'])->name('otp.send');
+    // Update pass Profile
+    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('user.updatePassword');
 
-// Route untuk menampilkan form OTP
-Route::get('otp', [LupaPasswordController::class, 'showOtpForm'])->name('otp.form');
+    // Diagnosa Routes
+    Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa');
+    Route::post('/diagnosa/process', [DiagnosaController::class, 'process'])->name('diagnosa.process');
+    Route::get('/diagnosa/hasil/{id}', [DiagnosaController::class, 'hasil'])->name('diagnosa.hasil');
 
-// Route untuk memverifikasi OTP
-Route::post('verifikasi-otp', [LupaPasswordController::class, 'verifyOtp'])->name('otp.verify');
-
-// Route untuk menampilkan form reset password
-Route::get('reset-password', [LupaPasswordController::class, 'showResetPass'])->name('reset.password.form');
-
-// Route untuk melakukan reset password
-Route::post('reset-password', [LupaPasswordController::class, 'resetPassword'])->name('reset.password');
-
-// Update pass Profile
-Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])
-    ->name('user.updatePassword')
-    ->middleware('auth');
-
-// Registration Routes
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
-
-// Diagnosa Routes
-Route::get('diagnosa', [DiagnosaController::class, 'index'])->name('diagnosa')->middleware('auth');
-Route::post('/diagnosa/process', [DiagnosaController::class, 'process'])->name('diagnosa.process')->middleware('auth');
-Route::get('/diagnosa/hasil/{id}', [DiagnosaController::class, 'hasil'])->name('diagnosa.hasil')->middleware('auth');
-
-// Lupa Pass
-Route::get('/lupapass', function () {
-    return view('layouts.inputemail');
-})->name('lupapass');
+    // Profile Route
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
 
 
-// Login Routes
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
+    // Route detail penyakit
+    Route::get('/detailpenyakit', function () {
+        return view('layouts.diagnosa.detailpenyakit');
+    })->name('detailpenyakit');
+
+    Route::get('/history', [HistoryController::class, 'index'])->name('history');
+
+    // Route ke halaman detail riwayat
+    Route::get('/history/{id}/detail', [HistoryController::class, 'detail'])->name('history.detail');
+    Route::get('/history/{id}/print', [HistoryController::class, 'print'])->name('history.print');
+
+    // Rincian detail penyakit
+    Route::get('/penyakit/{id}', [PenyakitController::class, 'show'])->name('rinciandetailpenyakit');
+});
+
+Route::middleware('guest')->group(function () {
+
+    // Route untuk menampilkan form input email
+    Route::get('lupa-kata-sandi', [LupaPasswordController::class, 'showInputEmail'])->name('lupa.kata.sandi');
+
+    // Route untuk mengirimkan OTP ke email
+    Route::post('kirim-otp', [LupaPasswordController::class, 'sendOtp'])->name('otp.send');
+
+    // Route untuk menampilkan form OTP
+    Route::get('otp', [LupaPasswordController::class, 'showOtpForm'])->name('otp.form');
+
+    // Route untuk memverifikasi OTP
+    Route::post('verifikasi-otp', [LupaPasswordController::class, 'verifyOtp'])->name('otp.verify');
+
+    // Route untuk menampilkan form reset password
+    Route::get('reset-password', [LupaPasswordController::class, 'showResetPass'])->name('reset.password.form');
+
+    // Route untuk melakukan reset password
+    Route::post('reset-password', [LupaPasswordController::class, 'resetPassword'])->name('reset.password');
+
+    // Registration Routes
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
+
+    // Lupa Pass
+    Route::get('/lupapass', function () {
+        return view('layouts.inputemail');
+    })->name('lupapass');
+
+    // Login Routes
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+});
 
 // Login Admin 
 Route::get('/homeadmin', [AdminHomeController::class, 'index'])->middleware('auth');
@@ -118,30 +140,9 @@ Route::post('logout', function () {
 // Home Route
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
-// Profile Route
-Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
-Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.updateProfile');
-
-// Gejala Routes
-// Route::get('/diagnosa', [GejalaController::class, 'index'])->name('diagnosa')->middleware('auth');
 Route::post('/gejala/fetch', [GejalaController::class, 'fetch'])->name('gejala.fetch');
-
-// Route untuk proses penambahan gejala
-// Route::post('/diagnosa/add-gejala', [GejalaController::class, 'process'])->name('diagnosa.process')->middleware('auth');
-
-// Route detail penyakit
-Route::get('/detailpenyakit', function () {
-    return view('layouts.diagnosa.detailpenyakit');
-})->name('detailpenyakit')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     // Route ke halaman history via controller
-    Route::get('/history', [HistoryController::class, 'index'])->name('history');
 
-    // Route ke halaman detail riwayat
-    Route::get('/history/{id}/detail', [HistoryController::class, 'detail'])->name('history.detail');
-    Route::get('/history/{id}/print', [HistoryController::class, 'print'])->name('history.print')->middleware('auth');
 });
-
-// Rincian detail penyakit
-Route::get('/penyakit/{id}', [PenyakitController::class, 'show'])->name('rinciandetailpenyakit');

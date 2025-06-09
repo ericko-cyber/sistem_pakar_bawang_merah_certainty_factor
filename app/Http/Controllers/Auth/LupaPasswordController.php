@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -17,18 +18,27 @@ class LupaPasswordController extends Controller
     // Menampilkan form input email untuk lupa password
     public function showInputEmail()
     {
+        if (Auth::check()) {
+            return redirect('/home'); // Ganti dengan redirect ke /dashboard jika diperlukan
+        }
         return view('layouts.inputemail');
     }
 
     // Menampilkan form OTP
     public function showOtpForm()
     {
+        if (Auth::check()) {
+            return redirect('/home'); // Ganti dengan redirect ke /dashboard jika diperlukan
+        }
         return view('layouts.otp');
     }
 
     // Menampilkan form reset password
     public function showResetPass()
     {
+        if (Auth::check()) {
+            return redirect('/home'); // Ganti dengan redirect ke /dashboard jika diperlukan
+        }
         return view('layouts.resetpass');
     }
 
