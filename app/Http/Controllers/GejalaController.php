@@ -10,12 +10,13 @@ class GejalaController extends Controller
 {
     public function index()
     {
-        $gejala_list = DB::table('gejala')->get();
+        $gejala_list = DB::table('gejala')
+            ->orderBy('kode_gejala')  // Mengurutkan berdasarkan kolom 'kode_gejala'
+            ->get();
         return view('layouts.diagnosa.diagnosalay')->with('gejala_list', $gejala_list);
-
     }
 
-    
+
 
     public function fetch(Request $request)
     {

@@ -132,7 +132,7 @@
                                         <select name="gejala[]" class="form-control input-lg mt-2 gejala-select">
                                             <option value="">Pilih Gejala</option>
                                             @foreach($gejala_list as $gejala)
-                                            <option value="{{ $gejala->id }}">{{ $gejala->nama_gejala }}</option>
+                                            <option value="{{ $gejala->id }}">{{ $gejala->kode_gejala }} - {{ $gejala->nama_gejala }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -143,6 +143,7 @@
                                             <option value="0.8">Hampir Pasti (80%)</option>
                                             <option value="0.6">Kemungkinan Besar (60%)</option>
                                             <option value="0.4">Mungkin (40%)</option>
+                                            <option value="0.2">Tidak Yakin (20%)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -155,7 +156,7 @@
                                     <li><strong>Hampir Pasti (80%)</strong>: Anda cukup yakin gejala ini terjadi</li>
                                     <li><strong>Kemungkinan Besar (60%)</strong>: Anda melihat gejala ini ada tapi tidak terlalu jelas</li>
                                     <li><strong>Mungkin (40%)</strong>: Anda tidak yakin tapi ada kemungkinan gejala ini terjadi</li>
-                                    <li><strong>Tidak Yakin (20%)</strong>:  Anda sama sekali tidak yakin/tidak tahu</li>
+                                    <li><strong>Tidak Yakin (20%)</strong>: Anda sama sekali tidak yakin/tidak tahu</li>
                                 </ul>
                             </div>
 
@@ -231,8 +232,10 @@
         }) => {
             const currentValue = $(el).val();
 
-            // Pastikan hanya dropdown gejala yang diproses untuk pilihan gejala
             if ($(el).hasClass('gejala-select')) {
+                // Urutkan gejalaList berdasarkan kode_gejala
+                const sortedGejala = gejalaList.sort((a, b) => a.kode_gejala.localeCompare(b.kode_gejala));
+
                 instance.clearChoices();
                 instance.setChoices(
                     [{
@@ -240,9 +243,9 @@
                         label: 'Pilih Gejala',
                         selected: currentValue === ''
                     }].concat(
-                        gejalaList.map(g => ({
+                        sortedGejala.map(g => ({
                             value: g.id,
-                            label: `${g.kode_gejala} - ${g.nama_gejala}`, // <- update label jadi kode - nama
+                            label: `${g.kode_gejala} - ${g.nama_gejala}`, // Pastikan label berisi kode dan nama gejala
                             disabled: selectedValues.includes(String(g.id)) && String(g.id) !== currentValue,
                             selected: String(g.id) === currentValue
                         }))
@@ -253,7 +256,6 @@
                 );
             }
 
-            // Pastikan dropdown kepastian (cf-select) tidak terpengaruh
             if ($(el).hasClass('cf-select')) {
                 instance.clearChoices();
                 instance.setChoices(
@@ -261,6 +263,10 @@
                         value: '',
                         label: 'Kondisi',
                         selected: currentValue === ''
+                    }, {
+                        value: '1',
+                        label: 'Pasti (100%)',
+                        selected: currentValue === '0.1'
                     }, {
                         value: '0.8',
                         label: 'Hampir Pasti (80%)',
@@ -290,6 +296,8 @@
         });
     }
 
+
+
     $(document).ready(function() {
         // Inisialisasi Choices untuk gejala
         $(".gejala-select").each(function() {
@@ -313,7 +321,7 @@
                 </div>
                 <div class="select-wrapper">
                     <select name="cf_user[]" class="form-control input-lg mt-2 cf-select">
-                        <option value="">Kondisi</option>
+                        <option value="1">Pasti (100%)</option>
                         <option value="0.8">Hampir Pasti (80%)</option>
                         <option value="0.6">Kemungkinan Besar (60%)</option>
                         <option value="0.4">Mungkin (40%)</option>

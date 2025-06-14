@@ -338,11 +338,11 @@
 						<div class="form-row">
 							<div class="form-group">
 								<label class="form-label" for="umur">Umur</label>
-								<input class="form-input" type="number" id="umur" name="umur" value="{{ Auth::user()->umur ?? '' }}">
+								<input class="form-input" type="date" id="umur" name="umur" value="{{ Auth::user()->umur ?? '' }}">
 							</div>
 							<div class="form-group">
 								<label class="form-label" for="telp">Telp</label>
-								<input class="form-input" type="text" id="telp" name="telp" value="{{ Auth::user()->telp ?? '' }}">
+								<input class="form-input" type="text" id="telp" name="telp" value="{{ Auth::user()->telp ?? '' }}" pattern="\d+" title="Hanya angka yang diperbolehkan" required>
 							</div>
 						</div>
 
