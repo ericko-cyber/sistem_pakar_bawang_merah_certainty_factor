@@ -264,10 +264,6 @@
                         label: 'Kondisi',
                         selected: currentValue === ''
                     }, {
-                        value: '1',
-                        label: 'Pasti (100%)',
-                        selected: currentValue === '0.1'
-                    }, {
                         value: '0.8',
                         label: 'Hampir Pasti (80%)',
                         selected: currentValue === '0.8'
@@ -321,7 +317,6 @@
                 </div>
                 <div class="select-wrapper">
                     <select name="cf_user[]" class="form-control input-lg mt-2 cf-select">
-                        <option value="1">Pasti (100%)</option>
                         <option value="0.8">Hampir Pasti (80%)</option>
                         <option value="0.6">Kemungkinan Besar (60%)</option>
                         <option value="0.4">Mungkin (40%)</option>

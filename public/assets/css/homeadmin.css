@@ -11019,30 +11019,39 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
-  color: rgba(255, 255, 255, 0.5);
+  background-color: #e0e0e0;  /* Warna putih lembut */
+  color: rgba(0, 0, 0, 0.7); /* Mengubah warna teks menjadi lebih gelap agar kontras */
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(0, 0, 0, 0.75); /* Teks heading lebih gelap */
+  font-size: 1.3rem;
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.7); /* Teks link lebih gelap */
+  font-size: 1.2rem;
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(0, 0, 0, 0.5); /* Ikon lebih gelap */
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(0, 0, 0, 0.5); /* Ikon panah lebih gelap */
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #fff;
+  color: #333; /* Warna teks lebih gelap pada hover */
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
-  color: #fff;
+  color: #333; /* Warna teks lebih gelap pada active */
 }
+
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: #fff;
+  color: #333; /* Ikon lebih gelap pada active */
 }
+
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
 }

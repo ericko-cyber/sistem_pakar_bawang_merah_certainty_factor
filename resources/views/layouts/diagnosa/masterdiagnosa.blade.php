@@ -337,7 +337,7 @@
 
 						<div class="form-row">
 							<div class="form-group">
-								<label class="form-label" for="umur">Umur</label>
+								<label class="form-label" for="umur">Tanggal Lahir</label>
 								<input class="form-input" type="date" id="umur" name="umur" value="{{ Auth::user()->umur ?? '' }}">
 							</div>
 							<div class="form-group">

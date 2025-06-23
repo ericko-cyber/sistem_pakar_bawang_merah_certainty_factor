@@ -35,7 +35,7 @@ class ProfileController extends Controller
         $request->validate([
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'umur' => 'nullable|numeric',
+            'umur' => 'nullable|date',
             'telp' => 'nullable|string|max:15',
             'alamat' => 'nullable|string',
         ]);

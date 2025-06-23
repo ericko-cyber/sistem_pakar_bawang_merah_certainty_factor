@@ -282,11 +282,8 @@
 							</li>
 							<li class="d-flex align-items-center">
 								@if(Auth::check())
-								@if(Auth::user()->role === 'user')
-								<!-- Tombol Profil hanya untuk user -->
-								<a href="{{ route('profile') }}" class="main-red-button">Profil</a>
-								@endif
-								<a href="#" class="main-red-button"
+								<a href="javascript:void(0);" class="main-red-button" onclick="togglePopup()">Profil</a>
+								<a href="#" class="main-red-button" style="margin-left: 10px;"
 									onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 									Logout
 								</a>
@@ -352,7 +349,7 @@
 
 					<div class="form-row">
 						<div class="form-group">
-							<label class="form-label" for="umur">Umur</label>
+							<label class="form-label" for="umur">Tanggal Lahir</label>
 							<input class="form-input" type="date" id="umur" name="umur" value="{{ Auth::user()->umur ?? '' }}">
 						</div>
 						<div class="form-group">

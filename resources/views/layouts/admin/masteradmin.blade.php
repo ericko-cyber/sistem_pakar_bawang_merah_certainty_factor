@@ -18,8 +18,6 @@
 
 <body class="sb-nav-fixed">
     <!-- Navbar -->
-
-
     <div id="layoutSidenav">
         <!-- Sidebar -->
         <div id="layoutSidenav_nav">
